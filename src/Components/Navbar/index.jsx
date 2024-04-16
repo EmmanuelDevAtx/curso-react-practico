@@ -2,9 +2,11 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../Context'
+import { useAuth } from '../../Context/auth'
 
 const Navbar = () => {
   const context = useContext(ShoppingCartContext)
+  const { logOut, isSignin, email } = useAuth();
   const activeStyle = 'underline underline-offset-4'
 
   return (
@@ -77,34 +79,45 @@ const Navbar = () => {
         </li>
       </ul>
       <ul className='flex items-center gap-3'>
-        <li className='text-black/60'>
-          teff@platzi.com
-        </li>
+        {
+          isSignin &&
+          <li className='text-black/60'>
+            {email}
+          </li>
+        }
+        {
+          isSignin &&
+          <li>
+            <NavLink
+              to='/my-orders'
+              className={({ isActive }) =>
+                isActive ? activeStyle : undefined
+              }>
+              My Orders
+            </NavLink>
+          </li>
+        }
+        {
+          isSignin &&
+          <li>
+            <NavLink
+              to='/my-account'
+              className={({ isActive }) =>
+                isActive ? activeStyle : undefined
+              }>
+              My Account
+            </NavLink>
+          </li>
+        }
+
         <li>
           <NavLink
-            to='/my-orders'
-            className={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }>
-            My Orders
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to='/my-account'
-            className={({ isActive }) =>
-              isActive ? activeStyle : undefined
-            }>
-            My Account
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
+            onClick={logOut}
             to='/sing-in'
             className={({ isActive }) =>
               isActive ? activeStyle : undefined
             }>
-            Sign In
+            {!isSignin ? 'Sign In' : 'Logout'}
           </NavLink>
         </li>
         <li className='flex items-center'>
