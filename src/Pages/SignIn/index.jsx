@@ -15,9 +15,8 @@ function SignIn() {
 
   return (
     <Layout>
-      <div className='flex flex-col border border-black rounded-lg p-6 gap-5 justify-center items-center w-1/4 '>
-        <p className='p-4'>
-          
+      <div className='flex flex-col border border-black rounded-lg p-6 gap-5 justify-center items-center w-1/4 sing-in'>
+        <p className='p-4 flex'>
           <span
             onClick={() => setTypeLogin('login')}
             className={`font-medium ${typeLogin == 'login' && ' bg-stone-800 text-white '} rounded-l-lg p-2 transition-colors cursor-pointer duration-700 ease border ${typeLogin != 'login' ? 'border-white' : 'border-black'} hover:border-black text-md font-light`}> log in</span>
@@ -27,7 +26,8 @@ function SignIn() {
         </p>
 
         <div className='flex flex-col w-full gap-6 justify-center items-center my-7'>
-          <div className='flex flex-row w-full justify-around'>
+
+          <div className='flex flex-row w-full justify-around container-input'>
             <p className=' font-light text-stone-500 text-sm'>Email</p>
             <input
               value={email}
@@ -36,7 +36,7 @@ function SignIn() {
               className=' drop-shadow-lg rounded-md px-2 py-0.5 focus:outline-none border border-white focus:border-stone-400 transition-colors duration-700 ease font-light text-stone-500 text-sm' />
           </div>
 
-          <div className='flex flex-row w-full justify-around'>
+          <div className='flex flex-row w-full justify-around container-input'>
             <p className=' font-light text-stone-500 text-sm'>Password</p>
             <input
               value={password}

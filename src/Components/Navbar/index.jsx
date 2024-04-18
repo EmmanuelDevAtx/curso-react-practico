@@ -1,17 +1,21 @@
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import { ShoppingBagIcon } from '@heroicons/react/24/solid'
+import { UserCircleIcon } from '@heroicons/react/24/solid'
+import { DocumentTextIcon } from '@heroicons/react/24/solid'
 import { ShoppingCartContext } from '../../Context'
 import { useAuth } from '../../Context/auth'
+import { Bars3Icon } from '@heroicons/react/24/solid'
+
 
 const Navbar = () => {
-  const context = useContext(ShoppingCartContext)
+  const context = useContext(ShoppingCartContext);
   const { logOut, isSignin, email } = useAuth();
-  const activeStyle = 'underline underline-offset-4'
+  const activeStyle = 'underline underline-offset-4';
 
   return (
-    <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light'>
-      <ul className='flex items-center gap-3'>
+    <nav className='flex justify-between items-center fixed z-10 top-0 w-full py-5 px-8 text-sm font-light backdrop-blur-lg backdrop-brightness-125'>
+      <ul className='flex items-center gap-3  navigation-response'>
         <li className='font-semibold text-lg'>
           <NavLink to='/'>
             Shopi
@@ -78,7 +82,7 @@ const Navbar = () => {
           </NavLink>
         </li>
       </ul>
-      <ul className='flex items-center gap-3'>
+      <ul className='flex items-center gap-3  navigation-response'>
         {
           isSignin &&
           <li className='text-black/60'>
@@ -125,6 +129,50 @@ const Navbar = () => {
           <div>{context.cartProducts.length}</div>
         </li>
       </ul>
+      {
+        isSignin &&
+        <ul className='navigation-response-small flex justify-end items-end '>
+          <li>
+            <button className=' rounded-full' onClick={context.openIsOpenSmallNav}>
+              <Bars3Icon className='w-7 h-7' />
+            </button>
+          </li>
+          <li className='text-black/60'>
+            {email}
+          </li>
+          <li>
+            <NavLink
+              to='/my-orders'
+              className={({ isActive }) =>
+                (isActive ? activeStyle : undefined) + ' flex  items-center'
+              }>
+              <DocumentTextIcon className='text-black w-5 h-5' />
+              <span>checks</span>
+            </NavLink>
+          </li>
+          <li className='flex items-center'>
+            <ShoppingBagIcon className='h-6 w-6 text-black'></ShoppingBagIcon>
+            <div>{context.cartProducts.length}</div>
+          </li>
+          <li>
+            <NavLink
+              to='/my-account'
+              className={({ isActive }) =>
+                isActive ? activeStyle : undefined
+              }>
+              <UserCircleIcon className='text-black w-7 h-7' />
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              onClick={logOut}
+              to='/sing-in'>
+              Logout
+            </NavLink>
+          </li>
+        </ul>
+      }
     </nav>
   )
 }

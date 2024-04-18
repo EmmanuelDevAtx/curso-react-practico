@@ -16,6 +16,11 @@ export const ShoppingCartProvider = ({children}) => {
   const openCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(true)
   const closeCheckoutSideMenu = () => setIsCheckoutSideMenuOpen(false)
 
+  // Checkout Side Menu · Open/Close
+  const [isOpenSmallNav, setIsOpenSmallNav] = useState(false)
+  const openIsOpenSmallNav = () => setIsOpenSmallNav(true)
+  const closeIsOpenSmallNav = () => setIsOpenSmallNav(false)
+
   // Product Detail · Show product
   const [productToShow, setProductToShow] = useState({})
 
@@ -96,7 +101,10 @@ export const ShoppingCartProvider = ({children}) => {
       setSearchByTitle,
       filteredItems,
       searchByCategory,
-      setSearchByCategory
+      setSearchByCategory,
+      isOpenSmallNav,
+      openIsOpenSmallNav,
+      closeIsOpenSmallNav
     }}>
       {children}
     </ShoppingCartContext.Provider>
